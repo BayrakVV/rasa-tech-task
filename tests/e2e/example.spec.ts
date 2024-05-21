@@ -1,18 +1,62 @@
+// @ts-check
+
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.describe("DemoBlaze UI tests", () => {
+  test("Should sign up and log in", async ({ page }) => {
+    const randomString = Math.random().toString(36).substring(2,7);
+    const username = "username+" + randomString;
+    const password = "password+" + randomString;
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+    await page.goto("https://www.demoblaze.com/");
+
+    await page.getByRole("link", { name: "Sign up" }).click();
+    await page.locator("#sign-username").fill(username);
+    await page.locator("#sign-password").fill(password);
+    await page.getByRole("button", { name: "Sign up" }).click();
+
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toEqual('Sign up successful.');
+      await dialog.accept();
+    });
+
+    await page.getByRole("link", { name: "Log in" }).click();
+    await page.locator("#loginusername").fill(username);
+    await page.locator("#loginpassword").fill(password);
+    await page.getByRole("button", { name: "Log in" }).click();
+
+    await expect(
+      page.getByRole("link", { name: "Welcome " + username })
+    ).toBeVisible();
+  });
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.describe("Graphql API tests", () => {
+  test("Should get details of Africa continent", async ({ request }) => {
+    const response = await request.post(
+      "https://countries.trevorblades.com/graphql",
+      {
+        data: {
+          query: `
+          query {
+            continent(code: "AF") {
+              code
+              name
+            }
+          }
+        `,
+        },
+      }
+    );
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+    expect(response.status()).toBe(200);
+    expect(await response.json()).toEqual({
+      data: {
+        "continent": {
+          code: "AF",
+          name: "Africa"
+        }
+      }
+    })
+  });
 });
