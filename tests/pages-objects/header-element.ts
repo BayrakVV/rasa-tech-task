@@ -6,14 +6,22 @@ export class HeaderElement {
     readonly element: Page;
     readonly homePageLink: Locator;
     readonly cartLink: Locator;
+
     readonly signUpLink: Locator;
     readonly signUpUsername: Locator;
     readonly signUpPassword: Locator;
     readonly signUpButton: Locator;
+
     readonly logInLink: Locator;
     readonly logInUsername: Locator;
     readonly logInPassword: Locator;
     readonly logInButton: Locator;
+
+    readonly contactLink: Locator;
+    readonly contactEmail: Locator;
+    readonly contactName: Locator;
+    readonly contactMessage: Locator;
+    readonly contactsendMessageButton: Locator;
 
     constructor(element: Page) {
         this.element = element;
@@ -29,6 +37,12 @@ export class HeaderElement {
         this.logInUsername = element.locator("#loginusername");
         this.logInPassword = element.locator("#loginpassword");
         this.logInButton = element.getByRole("button", { name: "Log in" });
+
+        this.contactLink = element.getByRole("link", { name: "Contact" });
+        this.contactEmail = element.getByLabel("Contact Email:");
+        this.contactName = element.getByLabel("Contact Name:");
+        this.contactMessage = element.getByLabel("Message:");
+        this.contactsendMessageButton = element.getByRole("button", { name: "Send message" });
     }
 
     async signUp(username: string, password: string) {
@@ -43,5 +57,13 @@ export class HeaderElement {
         await this.logInUsername.fill(username);
         await this.logInPassword.fill(password);
         await this.logInButton.click();
+    }
+
+    async contactSupport(email: string, name: string, message: string) {
+        await this.contactLink.click();
+        await this.contactEmail.fill(email);
+        await this.contactName.fill(name);
+        await this.contactMessage.fill(message);
+        await this.contactsendMessageButton.click();
     }
 }

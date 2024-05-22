@@ -12,18 +12,18 @@ test.describe("DemoBlaze UI tests", () => {
 
   test.beforeEach(async ({ page }) => {
     headerElement = new HeaderElement(page);
-
     await page.goto("/");
   });
 
   test("Should sign up", async ({ page }) => {
-    await headerElement.signUp(username, password);
-
     page.on('dialog', async (dialog) => {
       expect(dialog.message()).toEqual('Sign up successful.');
       await dialog.accept();
     });
+
+    await headerElement.signUp(username, password);
     
+    // Add a delay to ensure dialog is processed
     await headerElement.homePageLink.click();
   });
 
@@ -34,6 +34,19 @@ test.describe("DemoBlaze UI tests", () => {
     await expect(
       page.getByRole("link", { name: "Welcome " + username })
     ).toBeVisible();
+  });
+
+  test("Should contact support team", async ({ page }) => {
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toEqual('Thanks for the message!!');
+      await dialog.accept();
+    });
+
+    await headerElement.contactSupport(
+      "test@mail.com",
+      "Test User",
+      "Hello Support World!"
+    );
   });
 
   test("Should purchase a monitor", async ({page}) => {
