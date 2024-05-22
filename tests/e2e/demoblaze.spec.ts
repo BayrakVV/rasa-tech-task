@@ -20,7 +20,7 @@ test.describe("DemoBlaze UI tests", () => {
   test("Should sign up", async ({ page }) => {
     // Listen for dialog that appears after signing up
     page.on('dialog', async (dialog) => {
-      expect(dialog.message()).toBe('Sign up successful.');
+      expect(dialog.message()).toBe("Sign up successful.");
       await dialog.accept();
     });
 
@@ -42,7 +42,7 @@ test.describe("DemoBlaze UI tests", () => {
   test("Should contact support team", async ({ page }) => {
     // Listen for the dialog that appears after sending a message
     page.on('dialog', async (dialog) => {
-      expect(dialog.message()).toBe('Thanks for the message!!');
+      expect(dialog.message()).toBe("Thanks for the message!!");
       await dialog.accept();
     });
 
@@ -64,9 +64,9 @@ test.describe("DemoBlaze UI tests", () => {
     await page.getByRole("button", { name: "Place Order" }).click();
 
     // Fill out the order form and complete purchase
-    await page.getByLabel('Total:').fill('Test User');
-    await page.getByLabel('Credit card:').fill('Test card number');
-    await page.getByRole('button', { name: 'Purchase' }).click();
+    await page.locator("#name").fill("Test User");
+    await page.getByLabel("Credit card:").fill("Test card number");
+    await page.getByRole("button", { name: "Purchase" }).click();
 
     await expect(
       page.getByRole("heading", { name: "Thank you for your purchase!" })
