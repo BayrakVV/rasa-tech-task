@@ -3,7 +3,7 @@
 import { Locator, Page } from "@playwright/test";
 
 export class HeaderElement {
-    readonly element: Page;
+    readonly page: Page;
     readonly homePageLink: Locator;
     readonly cartLink: Locator;
 
@@ -23,26 +23,26 @@ export class HeaderElement {
     readonly contactMessage: Locator;
     readonly contactsendMessageButton: Locator;
 
-    constructor(element: Page) {
-        this.element = element;
-        this.homePageLink = element.locator("#nava");
-        this.cartLink = element.getByRole("link", { name: "Cart", exact: true });
+    constructor(page: Page) {
+        this.page = page;
+        this.homePageLink = page.locator("#nava");
+        this.cartLink = page.getByRole("link", { name: "Cart", exact: true });
 
-        this.signUpLink = element.getByRole("link", { name: "Sign up" });
-        this.signUpUsername = element.locator("#sign-username");
-        this.signUpPassword = element.locator("#sign-password");
-        this.signUpButton = element.getByRole("button", { name: "Sign up" });
+        this.signUpLink = page.getByRole("link", { name: "Sign up" });
+        this.signUpUsername = page.locator("#sign-username");
+        this.signUpPassword = page.locator("#sign-password");
+        this.signUpButton = page.getByRole("button", { name: "Sign up" });
 
-        this.logInLink = element.getByRole("link", { name: "Log in" });
-        this.logInUsername = element.locator("#loginusername");
-        this.logInPassword = element.locator("#loginpassword");
-        this.logInButton = element.getByRole("button", { name: "Log in" });
+        this.logInLink = page.getByRole("link", { name: "Log in" });
+        this.logInUsername = page.locator("#loginusername");
+        this.logInPassword = page.locator("#loginpassword");
+        this.logInButton = page.getByRole("button", { name: "Log in" });
 
-        this.contactLink = element.getByRole("link", { name: "Contact" });
-        this.contactEmail = element.getByLabel("Contact Email:");
-        this.contactName = element.getByLabel("Contact Name:");
-        this.contactMessage = element.getByLabel("Message:");
-        this.contactsendMessageButton = element.getByRole("button", { name: "Send message" });
+        this.contactLink = page.getByRole("link", { name: "Contact" });
+        this.contactEmail = page.getByLabel("Contact Email:");
+        this.contactName = page.getByLabel("Contact Name:");
+        this.contactMessage = page.getByLabel("Message:");
+        this.contactsendMessageButton = page.getByRole("button", { name: "Send message" });
     }
 
     async signUp(username: string, password: string) {
@@ -52,7 +52,7 @@ export class HeaderElement {
         await this.signUpButton.click();
     }
 
-    async LogIn(username: string, password: string) {
+    async logIn(username: string, password: string) {
         await this.logInLink.click();
         await this.logInUsername.fill(username);
         await this.logInPassword.fill(password);
