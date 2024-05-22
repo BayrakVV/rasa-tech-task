@@ -5,6 +5,7 @@ import { Locator, Page } from "@playwright/test";
 export class HeaderElement {
     readonly element: Page;
     readonly homePageLink: Locator;
+    readonly cartLink: Locator;
     readonly signUpLink: Locator;
     readonly signUpUsername: Locator;
     readonly signUpPassword: Locator;
@@ -16,8 +17,8 @@ export class HeaderElement {
 
     constructor(element: Page) {
         this.element = element;
-
         this.homePageLink = element.locator("#nava");
+        this.cartLink = element.getByRole("link", { name: "Cart", exact: true });
 
         this.signUpLink = element.getByRole("link", { name: "Sign up" });
         this.signUpUsername = element.locator("#sign-username");
