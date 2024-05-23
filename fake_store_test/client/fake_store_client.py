@@ -2,7 +2,8 @@ import requests
 
 
 class FakeStoreClient:
-    base_url = 'https://fakestoreapi.com'
+    def __init__(self, base_url):
+        self.base_url = base_url
 
     def get_carts(self, path='', query=''):
         response = requests.get(f'{self.base_url}/carts/{path}?{query}')
