@@ -1,3 +1,4 @@
+import json
 from datetime import date
 
 from fake_store_test.data.test_data import cart_data
@@ -9,20 +10,27 @@ class TestGetCarts:
         response = fake_store_client.get_carts()
 
         assert isinstance(response, list)
-        assert isinstance(response[0], dict)
-        assert 'id' in response[0]
-        assert 'userId' in response[0]
-        assert 'date' in response[0]
-        assert 'products' in response[0]
+        for cart in response:
+            assert isinstance(cart, dict)
+            assert 'id' in cart
+            assert 'userId' in cart
+            assert 'date' in cart
+            assert 'products' in cart
+            for product in cart['products']:
+                assert 'productId' in product
+                assert 'quantity' in product
 
     def test_get_single_cart(self, fake_store_client):
-        path = 1
-        response = fake_store_client.get_carts(path=path)
+        cart_id = 1
+        response = fake_store_client.get_carts(path=cart_id)
 
-        assert response['id'] == path
+        assert response['id'] == cart_id
         assert 'userId' in response
         assert 'date' in response
         assert 'products' in response
+        for product in response['products']:
+            assert 'productId' in product
+            assert 'quantity' in product
 
     def test_limit_carts(self, fake_store_client):
         query = 'limit=3'
