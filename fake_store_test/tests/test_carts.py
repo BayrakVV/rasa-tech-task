@@ -4,7 +4,7 @@ from datetime import date
 from fake_store_test.data.test_data import cart_data
 
 
-class TestGetCarts:
+class TestCarts:
 
     def test_get_all_carts(self, fake_store_client):
         response = fake_store_client.get_carts()
