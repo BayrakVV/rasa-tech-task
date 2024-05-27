@@ -101,7 +101,7 @@ TaskWarrior CLI:
 - Next cover the most critical modifications
 - At the end add cases for miscellaneous and helpers
 
-###Miscellaneous
+### Miscellaneous
 - Add a fixture to the API tests for creating carts and cleanup
 (Let's (again) imagine that we can create and delete carts)
 - Replace python-html-reporter with Allure. Add annotations to tests

@@ -20,7 +20,7 @@ jobs:
           pip install -r requirements.txt
       - name: Install and initialize Taskwarrior AUT
         run: |
-          apt-get install taskwarrior
+          sudo apt-get install taskwarrior
           yes | task version
       - name: Run tests
         run: |
