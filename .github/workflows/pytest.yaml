@@ -21,7 +21,7 @@ jobs:
       - name: Install and initialize Taskwarrior AUT
         run: |
           sudo apt-get install taskwarrior
-          yes | task version
+#          yes | task version
       - name: Run tests
         run: |
           pytest -v
