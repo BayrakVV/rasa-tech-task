@@ -12,3 +12,5 @@ RUN pip install -r requirements.txt
 
 # Copy test code into the container
 COPY . .
+
+ENTRYPOINT ["pytest", "-v"]
