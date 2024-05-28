@@ -45,10 +45,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: pytest-report
-          path: .
+          path: report
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: pytest_html_report.html
+          path: report
       - id: deployment
         uses: actions/deploy-pages@v4
