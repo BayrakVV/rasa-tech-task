@@ -38,7 +38,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@4
+      - uses: actions/download-artifact@v4
         with:
           name: pytest-report
           path: .
@@ -47,4 +47,4 @@ jobs:
         with:
           path: .
       - id: deployment
-        uses: actions/deploy-pages@4
+        uses: actions/deploy-pages@v4
