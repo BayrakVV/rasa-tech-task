@@ -17,55 +17,66 @@ To run tests locally:
 ### Setup for local run
 1. Clone the repository and navigate to the repository root:
     ```bash
-    git clone https://github.com/BayrakVV/rasa-tech-task.git
-    cd rasa-tech-task
+    $ git clone https://github.com/BayrakVV/rasa-tech-task.git
+    $ cd rasa-tech-task
     ```
 2. Create and activate a virtual environment:
     ```bash
-    python -m venv .env
-    source .env/bin/activate
+    $ python -m venv .env
+    $ source .env/bin/activate
     ```
 3. Install Dependencies:
     ```bash
-    pip install --upgrade pip
-    pip install -r requirements.txt
+    $ pip install --upgrade pip
+    $ pip install -r requirements.txt
     ```
+4. Initialize TaskWarrior CLI. Run the following command to check its version and set up the cofig file:
+    ```bash
+    $ task version
+    
+    A configuration file could not be found in ~
+
+    Would you like a sample /home/alice/.taskrc created, so taskwarrior can
+    proceed? (yes/no)
+    ```
+   When prompted, answer "yes" to create the file
 
 ## Running Tests
 
 ### Locally in the terminal
 - Run all tests:
     ```bash
-    pytest -v
+    $ pytest -v
     ```
 - Run Fake Store API suit:
     ```bash
-    pytest -v fake_store_test
+    $ pytest -v fake_store_test
     ```
 - Run TaskWarrior suit:
     ```bash
-    pytest -v task_warrior_test
+    $ pytest -v task_warrior_test
     ```
 - Run specific TaskWarrior test:
     ```bash
-    pytest -v task_warrior_test/tests/test_task_warrior.py::TestTaskWarrior::test_add_task
+    $ pytest -v task_warrior_test/tests/test_task_warrior.py::TestTaskWarrior::test_add_task
     ```
 
 ### Inside Docker container
 - Build Docker image:
     ```bash
-    docker build -t rasa-tech-task .
+    $ docker build -t rasa-tech-task .
     ```
 - Run all tests:
     ```bash
-    docker run -it --rm rasa-test
+    $ docker run -it --rm rasa-test
     ```
 - Run Fake Store API suit:
     ```bash
-    docker run -it --rm rasa-test fake_store_test
+    $ docker run -it --rm rasa-test fake_store_test
+    ```
 - Run specific TaskWarrior test:
     ```bash
-    docker run -it --rm rasa-test task_warrior_test/tests/test_task_warrior.py::TestTaskWarrior::test_add_task
+    $ docker run -it --rm rasa-test task_warrior_test/tests/test_task_warrior.py::TestTaskWarrior::test_add_task
     ```
 
 ## Test Suit Details
