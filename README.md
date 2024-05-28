@@ -62,22 +62,23 @@ To run tests locally:
     ```
 
 ### Inside Docker container
-- Build Docker image:
+1. Build Docker image:
     ```bash
     $ docker build -t rasa-tech-task .
     ```
-- Run all tests:
-    ```bash
-    $ docker run -it --rm rasa-test
-    ```
-- Run Fake Store API suit:
-    ```bash
-    $ docker run -it --rm rasa-test fake_store_test
-    ```
-- Run specific TaskWarrior test:
-    ```bash
-    $ docker run -it --rm rasa-test task_warrior_test/tests/test_task_warrior.py::TestTaskWarrior::test_add_task
-    ```
+2. Run tests:
+   - All:
+       ```bash
+       $ docker run -it --rm rasa-test
+       ```
+   - Fake Store API suit:
+       ```bash
+       $ docker run -it --rm rasa-test fake_store_test
+       ```
+   - Specific TaskWarrior test:
+       ```bash
+       $ docker run -it --rm rasa-test task_warrior_test/tests/test_task_warrior.py::TestTaskWarrior::test_add_task
+       ```
 
 ## Test Suit Details
 
