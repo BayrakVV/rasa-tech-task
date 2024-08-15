@@ -4,17 +4,16 @@ import { test, expect } from '@playwright/test';
 
 test.describe("Tennis Booking script", () => {
 
-    test("Should book time slot", async ({}) => {
+    test("Should book a time slot", async ({}) => {
 
-        // Launch browser
-        const browser = await chromium.launch({ headless: false }); // Set to 'true' for headless mode
+        const browser = await chromium.launch({ headless: true });
         const context = await browser.newContext();
         const page = await context.newPage();
 
-        // Log in
+        // Open tennis booking page
         await page.goto('https://sportcenterwittenau.buchungscloud.de/Platzbuchung/Info-11-tennis');
 
-        // Open tennis booking page
+        // Log in
         await page.fill('input[id="Username"]', 'VitalyBB');
         await page.fill('input[id="Password"]', '@P7%3PST1#5iwY#!4*MI');
         await page.click('button[id="Reg"]');
@@ -27,7 +26,6 @@ test.describe("Tennis Booking script", () => {
 
         // Choose a slot by timestamp
         await page.click('td[data-appointment="1724929200"]');
-        //   await page.click('text="1724929200"');
 
         // Agree to privacy policy
         await page.click('input[id="PrivacyChecked"]');
