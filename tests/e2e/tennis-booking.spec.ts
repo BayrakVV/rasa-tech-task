@@ -1,39 +1,46 @@
 import { chromium } from 'playwright';
+import { test, expect } from '@playwright/test';
 
-(async () => {
-  // Launch browser
-  const browser = await chromium.launch({ headless: false }); // Set to 'true' for headless mode
-  const context = await browser.newContext();
-  const page = await context.newPage();
 
-  // Open tennis booking page
-  await page.goto('https://sportcenterwittenau.buchungscloud.de/Platzbuchung/Info-11-tennis');
+test.describe("Tennis Booking script", () => {
 
-  // Log in
-  await page.fill('input[id="Username"]', 'VitalyBB');
-  await page.fill('input[id="Password"]', '@P7%3PST1#5iwY#!4*MI');
-  await page.click('button[id="Reg"]');
+    test("Should book time slot", async ({}) => {
 
-  // Open date picker
-  await page.click('input[id="Appointment"]');
+        // Launch browser
+        const browser = await chromium.launch({ headless: false }); // Set to 'true' for headless mode
+        const context = await browser.newContext();
+        const page = await context.newPage();
 
-  // Choose date by timestamp
-  await page.click('td[data-date="1724889600000"]');
+        // Log in
+        await page.goto('https://sportcenterwittenau.buchungscloud.de/Platzbuchung/Info-11-tennis');
 
-  // Choose a slot by timestamp
-  await page.click('td[data-appointment="1724929200"]');
-//   await page.click('text="1724929200"');
+        // Open tennis booking page
+        await page.fill('input[id="Username"]', 'VitalyBB');
+        await page.fill('input[id="Password"]', '@P7%3PST1#5iwY#!4*MI');
+        await page.click('button[id="Reg"]');
 
-  // Agree to privacy policy
-  await page.click('input[id="PrivacyChecked"]');
+        // Open date picker
+        await page.click('input[id="Appointment"]');
 
-  // Submit booking
-  await page.click('input[id="form-submit"]');
+        // Choose date by timestamp
+        await page.click('td[data-date="1724889600000"]');
 
-  // Check success messages
-  await page.waitForSelector('text="Ihre Reservierung für Tennis"');
-  await page.waitForSelector('text="war erfolgreich."');
+        // Choose a slot by timestamp
+        await page.click('td[data-appointment="1724929200"]');
+        //   await page.click('text="1724929200"');
 
-  // Close browser
-  await browser.close();
-})();
+        // Agree to privacy policy
+        await page.click('input[id="PrivacyChecked"]');
+
+        // Submit booking
+        await page.click('input[id="form-submit"]');
+
+        // Check success messages
+        await page.getByText("Ihre Reservierung für Tennis").isVisible();
+        await page.getByText("Ihre Reservierung für Tennis").isVisible();
+
+        // Close browser
+        await browser.close();
+    })
+})
+
